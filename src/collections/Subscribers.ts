@@ -1,0 +1,38 @@
+import type { CollectionConfig } from 'payload'
+
+export const Subscribers: CollectionConfig = {
+  slug: 'subscribers',
+  admin: {
+    useAsTitle: 'email',
+  },
+  fields: [
+    {
+        name: 'email',
+        type: 'text',
+        required: true,
+        unique: true,
+    },
+    {
+        name: 'name',
+        type: 'text',
+        required: true,
+    },
+    // attributes
+    {
+        name: 'attributes',
+        type: 'array',
+        fields: [
+            {
+                name: 'key',
+                type: 'text',
+                required: true,
+            },
+            {
+                name: 'value',
+                type: 'text',
+                required: true,
+            },
+        ],
+    },
+  ],
+}

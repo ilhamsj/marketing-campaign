@@ -2,14 +2,19 @@ version: '3'
 
 services:
   payload:
-    image: node:18-alpine
+    image: node:22
     ports:
       - '3000:3000'
     volumes:
       - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+    command: >
+      sh -c "
+      corepack enable && 
+      corepack prepare pnpm@latest --activate &&
+      pnpm config set store-dir /pnpm/store &&
+      pnpm install &&
+      pnpm run dev"
     depends_on:
       - mongo
       # - postgres
@@ -23,8 +28,8 @@ services:
       - '27017:27017'
     command:
       - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
+    # volumes:
+    #   - data:/data/db
     logging:
       driver: none
 
