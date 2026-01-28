@@ -17,7 +17,12 @@ export const Subscribers: CollectionConfig = {
         type: 'text',
         required: true,
     },
-    // attributes
+    {
+        name: 'tags',
+        type: 'relationship',
+        relationTo: 'tags',
+        hasMany: true,
+    },
     {
         name: 'attributes',
         type: 'array',

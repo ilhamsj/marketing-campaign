@@ -3,11 +3,16 @@ import { CollectionConfig } from "payload";
 import { Users } from "./Users";
 import { Media } from "./Media";
 import { Subscribers } from "./Subscribers";
+import { Tags } from "./Tags";
+import { Settings } from "./Settings";
+import { Campaigns } from "./Campaigns";
 
-const collections: CollectionConfig[] = [
-    Users,
+export const collections: CollectionConfig[] = [
+    Campaigns,
     Media,
+    Settings,
     Subscribers,
+    Tags,
+    Users,
 ];
 
-export default collections;
