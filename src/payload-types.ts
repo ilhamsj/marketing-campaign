@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     campaigns: Campaign;
+    'campaigns-templates': CampaignsTemplate;
     media: Media;
     settings: Setting;
     subscribers: Subscriber;
@@ -81,6 +82,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     campaigns: CampaignsSelect<false> | CampaignsSelect<true>;
+    'campaigns-templates': CampaignsTemplatesSelect<false> | CampaignsTemplatesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
@@ -148,6 +150,17 @@ export interface Campaign {
     };
     [k: string]: unknown;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns-templates".
+ */
+export interface CampaignsTemplate {
+  id: string;
+  name: string;
+  code: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -266,6 +279,10 @@ export interface PayloadLockedDocument {
         value: string | Campaign;
       } | null)
     | ({
+        relationTo: 'campaigns-templates';
+        value: string | CampaignsTemplate;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -336,6 +353,16 @@ export interface CampaignsSelect<T extends boolean = true> {
   subject?: T;
   fromAddress?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns-templates_select".
+ */
+export interface CampaignsTemplatesSelect<T extends boolean = true> {
+  name?: T;
+  code?: T;
   updatedAt?: T;
   createdAt?: T;
 }
