@@ -1,10 +1,11 @@
-import type { SanitizedConfig } from 'payload'
 import payload from 'payload'
-import { campaignSeed } from '@/collections/Campaigns.seed'
-import { subscriberSeed } from '@/collections/Subscribers.seed'
-import { tagSeed } from '@/collections/Tags.seed'
-import { templateSeed } from '@/collections/Templates.seed'
-import { userSeed } from '@/collections/Users.seed'
+import type { SanitizedConfig } from 'payload'
+
+import { campaignSeed } from './Campaigns.seed'
+import { subscriberSeed } from './Subscribers.seed'
+import { tagSeed } from './Tags.seed'
+import { templateSeed } from './Templates.seed'
+import { userSeed } from './Users.seed'
 
 export const script = async (config: SanitizedConfig) => {
   await payload.init({ config })

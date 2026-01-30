@@ -3,7 +3,7 @@ import { BinScriptConfig } from 'payload'
 export const bin: BinScriptConfig[] = [
   {
     key: 'generate:seed',
-    scriptPath: './src/bin/seed.ts',
+    scriptPath: './src/bin/seed/index.ts',
   },
   {
     key: 'generate:seed:tags',
