@@ -1,3 +1,4 @@
+import { CampaignsTemplate } from '@/payload-types'
 import type { CollectionConfig } from 'payload'
 
 export const CampaignsTemplates: CollectionConfig = {
@@ -8,6 +9,8 @@ export const CampaignsTemplates: CollectionConfig = {
   },
   admin: {
     group: 'Campaigns',
+    preview: (data) => `/templates/${data.id}`,
+    livePreview: { url: ({ data }) => `/templates/${data.id}` },
   },
   fields: [
     {

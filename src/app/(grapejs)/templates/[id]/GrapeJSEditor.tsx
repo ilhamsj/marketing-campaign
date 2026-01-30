@@ -2,11 +2,17 @@
 
 import 'grapesjs/dist/css/grapes.min.css'
 
+import { CampaignsTemplate } from '@/payload-types'
 import { useEffect, useRef } from 'react'
 import grapesjs, { Editor, EditorConfig } from 'grapesjs'
 import plugin from 'grapesjs-preset-newsletter'
 
-export default function GrapeJSEditor({ id }: { id: string }) {
+type Props = {
+  template: CampaignsTemplate
+  assets: string[]
+}
+
+export default function GrapeJSEditor({ template, assets }: Props) {
   const editorRef = useRef<HTMLDivElement>(null)
   const editorInstance = useRef<Editor | null>(null)
 
@@ -28,6 +34,8 @@ export default function GrapeJSEditor({ id }: { id: string }) {
       }
 
       editorInstance.current = grapesjs.init(config)
+      editorInstance.current.AssetManager.add(assets)
+      editorInstance.current.setComponents(template.code)
     }
 
     return () => {
