@@ -12,12 +12,24 @@ export const userSeed = async (payload: Payload) => {
       collection: 'users',
       data: {
         email: 'admin@example.com',
-        password: 'password',
+        password: 'admin@example.com',
       },
     })
     payload.logger.info('Created admin user: admin@example.com / password')
   } else {
-    payload.logger.info('Admin user already exists')
+    await payload.update({
+      collection: 'users',
+      data: {
+        email: 'admin@example.com',
+        password: 'admin@example.com',
+      },
+      where: {
+        email: {
+          equals: 'admin@example.com',
+        },
+      },
+    })
+    payload.logger.info('Updated admin user: admin@example.com / password')
   }
 }
 

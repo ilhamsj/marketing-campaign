@@ -13,9 +13,6 @@ services:
       pnpm config set store-dir /pnpm/store &&
       pnpm install &&
       pnpm run dev"
-    depends_on:
-      - mongo
-      # - postgres
     env_file:
       - .env
 
@@ -25,10 +22,19 @@ services:
       - 27017:27017
     command:
       - --storageEngine=wiredTiger
-    # volumes:
-    #   - data:/data/db
+    volumes:
+      - ./.data/mongodb:/data/db
     logging:
       driver: none
+
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/?authSource=admin
+      - ME_CONFIG_BASICAUTH_ENABLED=false
+    ports:
+      - 8081:8081
 
   mailhog:
     image: mailhog/mailhog:latest
@@ -37,17 +43,10 @@ services:
       - 1025:1025
       - 8025:8025
 
-
-  # Uncomment the following to use postgres
   # postgres:
   #   restart: always
   #   image: postgres:latest
   #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
+  #     - ./data/postgres:/var/lib/postgresql/data
   #   ports:
-  #     - "5432:5432"
-
-volumes:
-  data:
-  # pgdata:
-  node_modules:
+  #     - 5432:5432

@@ -19,9 +19,6 @@ export const Templates: CollectionConfig = {
       required: true,
       admin: {
         language: 'html',
-        editorProps: {
-          height: '50vh',
-        },
       },
     },
     {
@@ -29,10 +26,6 @@ export const Templates: CollectionConfig = {
       type: 'code',
       admin: {
         language: 'css',
-        editorOptions: {},
-        editorProps: {
-          height: '50vh',
-        },
       },
     },
   ],
