@@ -1,4 +1,3 @@
-import { CampaignsTemplate } from '@/payload-types'
 import type { CollectionConfig } from 'payload'
 
 export const CampaignsTemplates: CollectionConfig = {
@@ -19,11 +18,25 @@ export const CampaignsTemplates: CollectionConfig = {
       required: true,
     },
     {
-      name: 'code',
+      name: 'html',
       type: 'code',
       required: true,
       admin: {
         language: 'html',
+        editorProps: {
+          height: '50vh',
+        },
+      },
+    },
+    {
+      name: 'css',
+      type: 'code',
+      admin: {
+        language: 'css',
+        editorOptions: {},
+        editorProps: {
+          height: '50vh',
+        },
       },
     },
   ],

@@ -4,7 +4,7 @@ import 'grapesjs/dist/css/grapes.min.css'
 
 import { CampaignsTemplate } from '@/payload-types'
 import { useEffect, useRef } from 'react'
-import grapesjs, { Editor, EditorConfig } from 'grapesjs'
+import grapesjs, { Editor, EditorConfig, ProjectData } from 'grapesjs'
 import plugin from 'grapesjs-preset-newsletter'
 
 type Props = {
@@ -18,24 +18,39 @@ export default function GrapeJSEditor({ template, assets }: Props) {
 
   useEffect(() => {
     if (editorRef.current && !editorInstance.current) {
+      const storageManagerConfig: EditorConfig['storageManager'] = {
+        type: 'remote',
+        autoload: false,
+        autosave: true,
+        options: {
+          remote: {
+            urlStore: `/api/campaigns-templates/${template.id}`,
+            fetchOptions: (opts) => (opts.method === 'POST' ? { method: 'PATCH' } : {}),
+          },
+        },
+        onStore: (data, editor) => {
+          console.log({ data })
+          return {
+            html: editor.getHtml(),
+            css: editor.getCss(),
+          }
+        },
+      }
+
       const config: EditorConfig = {
+        storageManager: storageManagerConfig,
+        assetManager: {
+          assets,
+        },
         container: editorRef.current,
-        // Get the content for the canvas directly from the element
-        // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
-        fromElement: true,
-        // Size of the editor
         height: '100vh',
         width: '100%',
-        // Disable the storage manager for the moment
-        storageManager: false,
-        // Avoid any default panel
-        panels: { defaults: [] },
         plugins: [plugin],
+        components: template.html,
+        style: template.css,
       }
 
       editorInstance.current = grapesjs.init(config)
-      editorInstance.current.AssetManager.add(assets)
-      editorInstance.current.setComponents(template.code)
     }
 
     return () => {
@@ -44,7 +59,7 @@ export default function GrapeJSEditor({ template, assets }: Props) {
         editorInstance.current = null
       }
     }
-  }, [])
+  }, [template.id])
 
   return <div ref={editorRef} style={{ width: '100%', height: '100vh' }} />
 }

@@ -160,7 +160,8 @@ export interface Campaign {
 export interface CampaignsTemplate {
   id: string;
   name: string;
-  code: string;
+  html: string;
+  css?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -361,7 +362,8 @@ export interface CampaignsSelect<T extends boolean = true> {
  */
 export interface CampaignsTemplatesSelect<T extends boolean = true> {
   name?: T;
-  code?: T;
+  html?: T;
+  css?: T;
   updatedAt?: T;
   createdAt?: T;
 }
