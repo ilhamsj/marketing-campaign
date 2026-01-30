@@ -3,29 +3,20 @@ import { faker } from '@faker-js/faker'
 
 import payload from 'payload'
 
-export const subscriberSeed = async (payload: Payload) => {
+export const campaignSeed = async (payload: Payload) => {
   const { docs } = await payload.find({
-    collection: 'tags',
+    collection: 'templates',
     limit: 100,
   })
 
   for (let index = 0; index < 10; index++) {
     await payload.create({
-      collection: 'subscribers',
+      collection: 'campaigns',
       data: {
-        email: faker.internet.email(),
         name: faker.person.firstName(),
-        tags: faker.helpers.arrayElements(docs, { min: 0, max: 3 }).map((tag) => tag.id),
-        attributes: [
-          {
-            key: 'gender',
-            value: faker.person.gender(),
-          },
-          {
-            key: 'sex',
-            value: faker.person.sex(),
-          },
-        ],
+        subject: faker.lorem.sentence(),
+        fromAddress: faker.internet.email(),
+        template: faker.helpers.arrayElement(docs).id,
       },
     })
   }
@@ -35,6 +26,6 @@ export const subscriberSeed = async (payload: Payload) => {
 
 export const script = async (config: SanitizedConfig) => {
   await payload.init({ config })
-  await subscriberSeed(payload)
+  await campaignSeed(payload)
   process.exit(0)
 }

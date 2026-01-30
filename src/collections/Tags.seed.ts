@@ -1,11 +1,9 @@
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker'
 import payload from 'payload'
-import type { SanitizedConfig } from 'payload'
+import type { Payload, SanitizedConfig } from 'payload'
 
-export const script = async (config: SanitizedConfig) => {
-  await payload.init({ config })
-
-  for (let index = 0; index < 10; index++) {    
+export const tagSeed = async (payload: Payload) => {
+  for (let index = 0; index < 10; index++) {
     await payload.create({
       collection: 'tags',
       data: {
@@ -16,5 +14,10 @@ export const script = async (config: SanitizedConfig) => {
   }
 
   payload.logger.info('Successfully seeded!')
+}
+
+export const script = async (config: SanitizedConfig) => {
+  await payload.init({ config })
+  await tagSeed(payload)
   process.exit(0)
 }

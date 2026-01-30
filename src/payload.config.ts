@@ -1,10 +1,11 @@
 import { bin } from './bin'
 import { buildConfig } from 'payload'
+import { collections } from './collections'
 import { fileURLToPath } from 'url'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { Users } from './collections/Users'
-import {collections} from './collections'
 import path from 'path'
 import sharp from 'sharp'
 
@@ -30,4 +31,12 @@ export default buildConfig({
   bin,
   sharp,
   plugins: [],
+  email: nodemailerAdapter({
+    defaultFromAddress: 'info@payloadcms.com',
+    defaultFromName: 'Payload',
+    transportOptions: {
+      host: 'mailhog',
+      port: 1025,
+    },
+  }),
 })

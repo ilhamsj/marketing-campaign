@@ -24,7 +24,7 @@ export default function GrapeJSEditor({ template, assets }: Props) {
         autosave: true,
         options: {
           remote: {
-            urlStore: `/api/campaigns-templates/${template.id}`,
+            urlStore: `/api/templates/${template.id}`,
             fetchOptions: (opts) => (opts.method === 'POST' ? { method: 'PATCH' } : {}),
           },
         },

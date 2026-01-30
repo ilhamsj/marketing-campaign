@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.73.0",
+    "@payloadcms/email-nodemailer": "^3.73.0",
     "@payloadcms/next": "3.73.0",
     "@payloadcms/richtext-lexical": "3.73.0",
     "@payloadcms/ui": "3.73.0",
@@ -29,6 +30,7 @@
     "grapesjs-preset-newsletter": "^1.0.2",
     "graphql": "^16.8.1",
     "next": "15.4.10",
+    "nodemailer": "^7.0.13",
     "payload": "3.73.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
@@ -39,6 +41,7 @@
     "@playwright/test": "1.56.1",
     "@testing-library/react": "16.3.0",
     "@types/node": "^22.5.4",
+    "@types/nodemailer": "^7.0.9",
     "@types/react": "19.2.1",
     "@types/react-dom": "19.2.1",
     "@vitejs/plugin-react": "4.5.2",

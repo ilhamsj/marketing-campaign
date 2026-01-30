@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     campaigns: Campaign;
-    'campaigns-templates': CampaignsTemplate;
+    templates: Template;
     media: Media;
     settings: Setting;
     subscribers: Subscriber;
@@ -78,11 +78,12 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+    'payload-query-presets': PayloadQueryPreset;
   };
   collectionsJoins: {};
   collectionsSelect: {
     campaigns: CampaignsSelect<false> | CampaignsSelect<true>;
-    'campaigns-templates': CampaignsTemplatesSelect<false> | CampaignsTemplatesSelect<true>;
+    templates: TemplatesSelect<false> | TemplatesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
@@ -92,6 +93,7 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'payload-query-presets': PayloadQueryPresetsSelect<false> | PayloadQueryPresetsSelect<true>;
   };
   db: {
     defaultIDType: string;
@@ -135,7 +137,8 @@ export interface Campaign {
   name: string;
   subject: string;
   fromAddress: string;
-  content: {
+  template: string | Template;
+  content?: {
     root: {
       type: string;
       children: {
@@ -149,15 +152,15 @@ export interface Campaign {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "campaigns-templates".
+ * via the `definition` "templates".
  */
-export interface CampaignsTemplate {
+export interface Template {
   id: string;
   name: string;
   html: string;
@@ -279,8 +282,8 @@ export interface PayloadLockedDocument {
         value: string | Campaign;
       } | null)
     | ({
-        relationTo: 'campaigns-templates';
-        value: string | CampaignsTemplate;
+        relationTo: 'templates';
+        value: string | Template;
       } | null)
     | ({
         relationTo: 'media';
@@ -346,21 +349,71 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-query-presets".
+ */
+export interface PayloadQueryPreset {
+  id: string;
+  title: string;
+  isShared?: boolean | null;
+  access?: {
+    read?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+    update?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+    delete?: {
+      constraint?: ('everyone' | 'onlyMe' | 'specificUsers') | null;
+      users?: (string | User)[] | null;
+    };
+  };
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  columns?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  groupBy?: string | null;
+  relatedCollection: 'subscribers';
+  /**
+   * This is a temporary field used to determine if updating the preset would remove the user's access to it. When `true`, this record will be deleted after running the preset's `validate` function.
+   */
+  isTemp?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "campaigns_select".
  */
 export interface CampaignsSelect<T extends boolean = true> {
   name?: T;
   subject?: T;
   fromAddress?: T;
+  template?: T;
   content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "campaigns-templates_select".
+ * via the `definition` "templates_select".
  */
-export interface CampaignsTemplatesSelect<T extends boolean = true> {
+export interface TemplatesSelect<T extends boolean = true> {
   name?: T;
   html?: T;
   css?: T;
@@ -483,6 +536,43 @@ export interface PayloadPreferencesSelect<T extends boolean = true> {
 export interface PayloadMigrationsSelect<T extends boolean = true> {
   name?: T;
   batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-query-presets_select".
+ */
+export interface PayloadQueryPresetsSelect<T extends boolean = true> {
+  title?: T;
+  isShared?: T;
+  access?:
+    | T
+    | {
+        read?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+        update?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+        delete?:
+          | T
+          | {
+              constraint?: T;
+              users?: T;
+            };
+      };
+  where?: T;
+  columns?: T;
+  groupBy?: T;
+  relatedCollection?: T;
+  isTemp?: T;
   updatedAt?: T;
   createdAt?: T;
 }

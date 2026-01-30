@@ -6,7 +6,22 @@ export const GET = async (request: Request) => {
     config: configPromise,
   })
 
-  return Response.json({
-    message: 'This is an example of a custom route.',
+  const item = await payload.findByID({
+    collection: 'templates',
+    id: '697c3e43fe66863b8758cb7b',
   })
+  if (!item) {
+    return Response.json({
+      message: 'Item not found',
+    })
+  }
+
+  const email = await payload.sendEmail({
+    to: 'test@example.com',
+    subject: 'This is a test email',
+    text: 'This is my message body',
+    html: `<style>${item.css}</style>${item.html}`,
+  })
+
+  return Response.json(email)
 }

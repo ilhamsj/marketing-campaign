@@ -1,50 +1,32 @@
 import type { CollectionConfig } from 'payload'
 
 export const Campaigns: CollectionConfig = {
-  slug: ('Campaigns').toLowerCase(),
-  labels: {
-    plural: 'All Campaigns',
-    singular: 'All Campaigns',
-  },
-  admin: {
-    group: 'Campaigns',
-  },
+  slug: 'Campaigns'.toLowerCase(),
   fields: [
-    // tab
     {
-        type: 'tabs',
-        tabs: [
-            {
-                label: 'Campaign',
-                fields: [
-                    {
-                        name: 'name',
-                        type: 'text',
-                        required: true,
-                    },
-                    {
-                        name: 'subject',
-                        type: 'text',
-                        required: true,
-                    },
-                    {
-                        name: 'fromAddress',
-                        type: 'text',
-                        required: true,
-                    },
-                ],
-            },
-            {
-                label: 'Content',
-                fields: [
-                    {
-                        name: 'content',
-                        type: 'richText',
-                        required: true,
-                    },
-                ],
-            },
-        ],
-    }
+      name: 'name',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'subject',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'fromAddress',
+      type: 'email',
+      required: true,
+    },
+    {
+      name: 'template',
+      type: 'relationship',
+      relationTo: 'templates',
+      required: true,
+    },
+    {
+      name: 'content',
+      type: 'richText',
+    },
   ],
 }

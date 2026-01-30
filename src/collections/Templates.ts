@@ -1,15 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-export const CampaignsTemplates: CollectionConfig = {
-  slug: 'campaigns-templates',
-  labels: {
-    singular: 'Template',
-    plural: 'Templates',
-  },
+export const Templates: CollectionConfig = {
+  slug: 'templates',
   admin: {
-    group: 'Campaigns',
     preview: (data) => `/templates/${data.id}`,
     livePreview: { url: ({ data }) => `/templates/${data.id}` },
+    useAsTitle: 'name',
   },
   fields: [
     {

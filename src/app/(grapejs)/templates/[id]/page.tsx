@@ -22,7 +22,7 @@ export default async function page({ params }: Props) {
   const assets = docs.map((item) => item.url ?? '').filter(Boolean)
   const template = await payload
     .findByID({
-      collection: 'campaigns-templates',
+      collection: 'templates',
       id,
     })
     .catch(notFound)
