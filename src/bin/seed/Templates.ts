@@ -3,8 +3,8 @@ import { faker } from '@faker-js/faker'
 
 import payload from 'payload'
 
-export const templateSeed = async (payload: Payload) => {
-  for (let index = 0; index < 10; index++) {
+export const templateSeed = async (payload: Payload, totalDocs: number = 3) => {
+  for (let index = 0; index < totalDocs; index++) {
     await payload.create({
       collection: 'templates',
       data: {

@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker'
 
 import payload from 'payload'
 
-export const broadcastSeed = async (payload: Payload) => {
+export const broadcastSeed = async (payload: Payload, totalDocs: number = 10) => {
   const campaigns = await payload.find({
     collection: 'campaigns',
     limit: -1,
@@ -25,7 +25,7 @@ export const broadcastSeed = async (payload: Payload) => {
     return
   }
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < totalDocs; index++) {
     await payload.create({
       collection: 'broadcasts',
       data: {

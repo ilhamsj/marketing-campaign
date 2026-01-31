@@ -8,7 +8,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { Users } from './collections/Users'
 import path from 'path'
 import sharp from 'sharp'
-import { autoLoginUserForDevelopment } from './bin/seed/Users.seed'
+import { autoLoginUserForDevelopment } from './bin/seed/Users'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,6 +48,24 @@ export default buildConfig({
     },
   }),
   jobs: {
+    access: {
+      cancel: () => true,
+      queue: () => true,
+      run: () => true,
+    },
+    addParentToTaskLog: true,
+    autoRun: () => [
+      {
+        allQueues: true,
+        cron: '*/1 * * * *',
+        disableScheduling: true,
+        limit: 1,
+        queue: 'default',
+        silent: true,
+      },
+    ],
+    deleteJobOnComplete: false,
+    enableConcurrencyControl: true,
     jobsCollectionOverrides: ({ defaultJobsCollection }) => {
       defaultJobsCollection.admin = {
         ...defaultJobsCollection.admin,

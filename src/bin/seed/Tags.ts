@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker'
 import payload from 'payload'
 import type { Payload, SanitizedConfig } from 'payload'
 
-export const tagSeed = async (payload: Payload) => {
-  for (let index = 0; index < 10; index++) {
+export const tagSeed = async (payload: Payload, totalDocs: number = 10) => {
+  for (let index = 0; index < totalDocs; index++) {
     await payload.create({
       collection: 'tags',
       data: {

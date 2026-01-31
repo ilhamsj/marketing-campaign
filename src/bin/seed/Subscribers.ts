@@ -3,13 +3,13 @@ import { faker } from '@faker-js/faker'
 
 import payload from 'payload'
 
-export const subscriberSeed = async (payload: Payload) => {
+export const subscriberSeed = async (payload: Payload, totalDocs: number = 10) => {
   const { docs } = await payload.find({
     collection: 'tags',
     limit: 100,
   })
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < totalDocs; index++) {
     await payload.create({
       collection: 'subscribers',
       data: {

@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker'
 import payload from 'payload'
 import { slugify } from 'payload/shared'
 
-export const campaignSeed = async (payload: Payload) => {
+export const campaignSeed = async (payload: Payload, totalDocs: number = 3) => {
   const templates = await payload.find({
     collection: 'templates',
     limit: -1,
@@ -21,7 +21,7 @@ export const campaignSeed = async (payload: Payload) => {
   })
 
   const campaignsIds: string[] = []
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < totalDocs; index++) {
     const campaignTitle = faker.commerce.productName()
     const campaign = await payload.create({
       collection: 'campaigns',

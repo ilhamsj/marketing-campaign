@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker'
 
 import payload from 'payload'
 
-export const activitiesSeed = async (payload: Payload) => {
+export const activitiesSeed = async (payload: Payload, totalDocs: number = 10) => {
   const broadcasts = await payload.find({
     collection: 'broadcasts',
     limit: -1,
@@ -14,7 +14,7 @@ export const activitiesSeed = async (payload: Payload) => {
     return
   }
 
-  for (let index = 0; index < 10; index++) {
+  for (let index = 0; index < totalDocs; index++) {
     const action = faker.helpers.arrayElement([
       'sent',
       'failed',
