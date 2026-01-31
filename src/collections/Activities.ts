@@ -4,31 +4,27 @@ export const Activities: CollectionConfig = {
   slug: 'activities',
   fields: [
     {
-      name: 'campaign',
+      name: 'broadcast',
       type: 'relationship',
-      relationTo: 'campaigns',
+      relationTo: 'broadcasts',
     },
     {
-      name: 'template',
-      type: 'relationship',
-      relationTo: 'templates',
-    },
-    {
-      name: 'user',
-      type: 'relationship',
-      relationTo: 'users',
-    },
-    {
-      name: 'email',
-      type: 'text',
-    },
-    {
-      name: 'status',
+      name: 'action',
       type: 'select',
       options: [
         { label: 'Sent', value: 'sent' },
         { label: 'Failed', value: 'failed' },
+        { label: 'Delivered', value: 'delivered' },
+        { label: 'Opened', value: 'opened' },
+        { label: 'Clicked', value: 'clicked' },
+        { label: 'Unsubscribed', value: 'unsubscribed' },
+        { label: 'Bounced', value: 'bounced' },
       ],
+      required: true,
+    },
+    {
+      name: 'link',
+      type: 'text',
     },
   ],
 }

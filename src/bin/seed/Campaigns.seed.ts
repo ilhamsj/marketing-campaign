@@ -26,12 +26,10 @@ export const campaignSeed = async (payload: Payload) => {
     const campaign = await payload.create({
       collection: 'campaigns',
       data: {
-        general: {
-          title: campaignTitle,
-          slug: slugify(campaignTitle) ?? faker.lorem.slug(4),
-          subject: faker.commerce.productDescription(),
-          fromAddress: faker.helpers.arrayElement(['marketing@example.com', 'dev@example.com']),
-        },
+        slug: slugify(campaignTitle) ?? faker.lorem.slug(4),
+        title: campaignTitle,
+        subject: faker.commerce.productDescription(),
+        fromAddress: faker.helpers.arrayElement(['marketing@example.com', 'dev@example.com']),
         segments: {
           ...(tags.totalDocs > 0 && {
             tags: faker.helpers.arrayElements(tags.docs).map((doc) => doc.id),

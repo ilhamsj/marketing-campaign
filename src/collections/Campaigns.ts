@@ -11,7 +11,8 @@ const update: Access<Campaign> = ({ data }) => {
 export const Campaigns: CollectionConfig = {
   slug: 'campaigns',
   admin: {
-    defaultColumns: ['id', 'general.title', 'status', 'general.fromAddress', 'general.slug'],
+    defaultColumns: ['slug', 'title', 'status', 'fromAddress', 'subject'],
+    useAsTitle: 'title',
   },
   versions: {
     drafts: {
@@ -27,31 +28,36 @@ export const Campaigns: CollectionConfig = {
   },
   fields: [
     {
+      name: 'title',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    slugField({
+      useAsSlug: 'title',
+      position: 'sidebar',
+    }),
+    {
+      name: 'subject',
+      type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'fromAddress',
+      type: 'email',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
-        {
-          name: 'general',
-          fields: [
-            {
-              name: 'title',
-              type: 'text',
-              required: true,
-            },
-            slugField({
-              useAsSlug: 'general.title',
-            }),
-            {
-              name: 'subject',
-              type: 'text',
-              required: true,
-            },
-            {
-              name: 'fromAddress',
-              type: 'email',
-              required: true,
-            },
-          ],
-        },
         {
           name: 'segments',
           fields: [
@@ -106,5 +112,6 @@ export const Campaigns: CollectionConfig = {
         //
       },
     ],
+    afterChange: [({ collection, context, data, operation, req }) => {}],
   },
 }

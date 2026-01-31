@@ -67,12 +67,14 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    activities: Activity;
+    broadcasts: Broadcast;
     campaigns: Campaign;
-    templates: Template;
     media: Media;
     settings: Setting;
     subscribers: Subscriber;
     tags: Tag;
+    templates: Template;
     users: User;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
@@ -83,12 +85,14 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
+    broadcasts: BroadcastsSelect<false> | BroadcastsSelect<true>;
     campaigns: CampaignsSelect<false> | CampaignsSelect<true>;
-    templates: TemplatesSelect<false> | TemplatesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    templates: TemplatesSelect<false> | TemplatesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
@@ -138,20 +142,41 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities".
+ */
+export interface Activity {
+  id: string;
+  broadcast?: (string | null) | Broadcast;
+  action: 'sent' | 'failed' | 'delivered' | 'opened' | 'clicked' | 'unsubscribed' | 'bounced';
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "broadcasts".
+ */
+export interface Broadcast {
+  id: string;
+  campaign?: (string | null) | Campaign;
+  subscriber?: (string | null) | Subscriber;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "campaigns".
  */
 export interface Campaign {
   id: string;
-  general: {
-    title: string;
-    /**
-     * When enabled, the slug will auto-generate from the title field on save and autosave.
-     */
-    generateSlug?: boolean | null;
-    slug: string;
-    subject: string;
-    fromAddress: string;
-  };
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  subject: string;
+  fromAddress: string;
   segments?: {
     tags?: (string | Tag)[] | null;
     filters?: string | null;
@@ -203,6 +228,25 @@ export interface Template {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string;
+  email: string;
+  name: string;
+  tags?: (string | Tag)[] | null;
+  attributes?:
+    | {
+        key: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
@@ -229,25 +273,6 @@ export interface Setting {
   url: string;
   host: string;
   port: number;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "subscribers".
- */
-export interface Subscriber {
-  id: string;
-  email: string;
-  name: string;
-  tags?: (string | Tag)[] | null;
-  attributes?:
-    | {
-        key: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -392,12 +417,16 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'campaigns';
-        value: string | Campaign;
+        relationTo: 'activities';
+        value: string | Activity;
       } | null)
     | ({
-        relationTo: 'templates';
-        value: string | Template;
+        relationTo: 'broadcasts';
+        value: string | Broadcast;
+      } | null)
+    | ({
+        relationTo: 'campaigns';
+        value: string | Campaign;
       } | null)
     | ({
         relationTo: 'media';
@@ -414,6 +443,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: string | Tag;
+      } | null)
+    | ({
+        relationTo: 'templates';
+        value: string | Template;
       } | null)
     | ({
         relationTo: 'users';
@@ -512,18 +545,35 @@ export interface PayloadQueryPreset {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities_select".
+ */
+export interface ActivitiesSelect<T extends boolean = true> {
+  broadcast?: T;
+  action?: T;
+  link?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "broadcasts_select".
+ */
+export interface BroadcastsSelect<T extends boolean = true> {
+  campaign?: T;
+  subscriber?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "campaigns_select".
  */
 export interface CampaignsSelect<T extends boolean = true> {
-  general?:
-    | T
-    | {
-        title?: T;
-        generateSlug?: T;
-        slug?: T;
-        subject?: T;
-        fromAddress?: T;
-      };
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  subject?: T;
+  fromAddress?: T;
   segments?:
     | T
     | {
@@ -539,17 +589,6 @@ export interface CampaignsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "templates_select".
- */
-export interface TemplatesSelect<T extends boolean = true> {
-  name?: T;
-  html?: T;
-  css?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -605,6 +644,17 @@ export interface SubscribersSelect<T extends boolean = true> {
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "templates_select".
+ */
+export interface TemplatesSelect<T extends boolean = true> {
+  name?: T;
+  html?: T;
+  css?: T;
   updatedAt?: T;
   createdAt?: T;
 }
