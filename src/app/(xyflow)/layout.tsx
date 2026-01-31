@@ -1,4 +1,5 @@
 import '@xyflow/react/dist/style.css'
+import '../(frontend)/styles.css'
 import { ReactFlowProvider } from '@xyflow/react'
 
 export const metadata = {

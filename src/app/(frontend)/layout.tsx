@@ -1,5 +1,7 @@
-import React from 'react'
 import './styles.css'
+import { JetBrains_Mono } from 'next/font/google'
+
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -11,7 +13,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body>
+      <body className={`${jetbrainsMono.variable} antialiased`}>
         <main>{children}</main>
       </body>
     </html>

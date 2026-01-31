@@ -15,6 +15,7 @@ import {
   Panel,
 } from '@xyflow/react'
 import { useCallback, useEffect, useRef } from 'react'
+import { nodeTypes } from './node/TextUpdaterNode'
 
 const getNodeId = (ids: number[]): number => {
   const set = new Set(ids)
@@ -71,6 +72,7 @@ export function FlowWithAPI({ workflow }: { workflow: Workflow }) {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         fitView
+        nodeTypes={nodeTypes}
       >
         <MiniMap nodeStrokeWidth={3} pannable zoomable />
         <Background />
