@@ -8,6 +8,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { Users } from './collections/Users'
 import path from 'path'
 import sharp from 'sharp'
+import { autoLoginUserForDevelopment } from './bin/seed/Users.seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,6 +18,13 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    timezones: {
+      defaultTimezone: 'Asia/Jakarta',
+    },
+    autoLogin: {
+      ...autoLoginUserForDevelopment,
+      prefillOnly: true,
     },
   },
   collections,

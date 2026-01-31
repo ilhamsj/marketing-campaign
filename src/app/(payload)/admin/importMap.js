@@ -1,3 +1,6 @@
+import { SlugField as SlugField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
+import { CustomSelectFieldLabelClient as CustomSelectFieldLabelClient_2db542ef2e0a664acaa5679fc14aa54b } from '@/collections/Fields/select/components/client/Label'
+import { CustomSelectFieldClient as CustomSelectFieldClient_c8b4c7f3e98b5887ca262dd841bffa2f } from '@/collections/Fields/select/components/client/Field'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -31,6 +34,9 @@ import { QueryPresetsGroupByField as QueryPresetsGroupByField_3817bf644402e67bfe
 import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
+  "@payloadcms/ui#SlugField": SlugField_3817bf644402e67bfe6577f60ef982de,
+  "@/collections/Fields/select/components/client/Label#CustomSelectFieldLabelClient": CustomSelectFieldLabelClient_2db542ef2e0a664acaa5679fc14aa54b,
+  "@/collections/Fields/select/components/client/Field#CustomSelectFieldClient": CustomSelectFieldClient_c8b4c7f3e98b5887ca262dd841bffa2f,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
