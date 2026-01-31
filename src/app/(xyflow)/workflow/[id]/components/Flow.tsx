@@ -9,10 +9,12 @@ import {
   Connection,
   useNodesState,
   useEdgesState,
+  Node,
+  Edge,
 } from '@xyflow/react'
 import { useCallback } from 'react'
 
-const initialNodes = [
+const initialNodes: Node[] = [
   {
     id: 'n1',
     position: { x: 0, y: 0 },
@@ -31,7 +33,7 @@ const initialNodes = [
   },
 ]
 
-const initialEdges = [
+const initialEdges: Edge[] = [
   {
     id: 'n1-n2',
     // type: 'step',
@@ -49,8 +51,8 @@ const initialEdges = [
 ]
 
 export function Flow() {
-  const [nodes, setNodes, onNodesChange] = useNodesState([])
-  const [edges, setEdges, onEdgesChange] = useEdgesState([])
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
