@@ -41,9 +41,15 @@ RUN \
 FROM base AS runner
 WORKDIR /app
 
+ARG DATABASE_URI
+ARG PAYLOAD_SECRET
+
 ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
+
+ENV DATABASE_URI=$DATABASE_URI
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
