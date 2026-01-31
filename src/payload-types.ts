@@ -75,6 +75,7 @@ export interface Config {
     tags: Tag;
     templates: Template;
     users: User;
+    workflows: Workflow;
     'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -92,6 +93,7 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     templates: TemplatesSelect<false> | TemplatesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    workflows: WorkflowsSelect<false> | WorkflowsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -289,6 +291,34 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workflows".
+ */
+export interface Workflow {
+  id: string;
+  name: string;
+  nodes?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  edges?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -442,6 +472,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'workflows';
+        value: string | Workflow;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -660,6 +694,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workflows_select".
+ */
+export interface WorkflowsSelect<T extends boolean = true> {
+  name?: T;
+  nodes?: T;
+  edges?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

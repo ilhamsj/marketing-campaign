@@ -49,8 +49,8 @@ const initialEdges = [
 ]
 
 export function Flow() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, setNodes, onNodesChange] = useNodesState([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState([])
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),

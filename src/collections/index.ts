@@ -7,6 +7,7 @@ import { Subscribers } from './Subscribers'
 import { Tags } from './Tags'
 import { Templates } from './Templates'
 import { Users } from './Users'
+import { Workflows } from './Wofkflows'
 
 export const collections: CollectionConfig[] = [
   Activities,
@@ -17,4 +18,5 @@ export const collections: CollectionConfig[] = [
   Tags,
   Templates,
   Users,
+  Workflows,
 ]
