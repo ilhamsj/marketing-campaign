@@ -47,4 +47,13 @@ export default buildConfig({
       port: 1025,
     },
   }),
+  jobs: {
+    jobsCollectionOverrides: ({ defaultJobsCollection }) => {
+      defaultJobsCollection.admin = {
+        ...defaultJobsCollection.admin,
+        hidden: false,
+      }
+      return defaultJobsCollection
+    },
+  },
 })

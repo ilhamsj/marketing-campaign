@@ -23,6 +23,7 @@ export const Campaigns: CollectionConfig = {
       },
     },
   },
+  trash: true,
   access: {
     update,
   },
