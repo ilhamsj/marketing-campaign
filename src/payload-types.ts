@@ -416,10 +416,6 @@ export interface PayloadJob {
           | number
           | boolean
           | null;
-        parent?: {
-          taskSlug?: ('inline' | 'schedulePublish') | null;
-          taskID?: string | null;
-        };
         id?: string | null;
       }[]
     | null;
@@ -427,10 +423,6 @@ export interface PayloadJob {
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
-  /**
-   * Used for concurrency control. Jobs with the same key are subject to exclusive/supersedes rules.
-   */
-  concurrencyKey?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -736,19 +728,12 @@ export interface PayloadJobsSelect<T extends boolean = true> {
         output?: T;
         state?: T;
         error?: T;
-        parent?:
-          | T
-          | {
-              taskSlug?: T;
-              taskID?: T;
-            };
         id?: T;
       };
   taskSlug?: T;
   queue?: T;
   waitUntil?: T;
   processing?: T;
-  concurrencyKey?: T;
   updatedAt?: T;
   createdAt?: T;
 }

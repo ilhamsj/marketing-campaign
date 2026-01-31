@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import path from 'path'
 import sharp from 'sharp'
 import { autoLoginUserForDevelopment } from './bin/seed/Users'
+import { env } from './constants/env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -39,21 +40,18 @@ export default buildConfig({
   bin,
   sharp,
   plugins: [],
-  email: nodemailerAdapter({
-    defaultFromAddress: 'info@payloadcms.com',
-    defaultFromName: 'Payload',
-    transportOptions: {
-      host: 'mailhog',
-      port: 1025,
-    },
-  }),
+  ...(env.SMTP_HOST &&
+    env.SMTP_PORT && {
+      email: nodemailerAdapter({
+        defaultFromAddress: 'info@payloadcms.com',
+        defaultFromName: 'Payload',
+        transportOptions: {
+          host: env.SMTP_HOST,
+          port: env.SMTP_PORT,
+        },
+      }),
+    }),
   jobs: {
-    access: {
-      cancel: () => true,
-      queue: () => true,
-      run: () => true,
-    },
-    addParentToTaskLog: true,
     autoRun: () => [
       {
         allQueues: true,
@@ -64,8 +62,6 @@ export default buildConfig({
         silent: true,
       },
     ],
-    deleteJobOnComplete: false,
-    enableConcurrencyControl: true,
     jobsCollectionOverrides: ({ defaultJobsCollection }) => {
       defaultJobsCollection.admin = {
         ...defaultJobsCollection.admin,
