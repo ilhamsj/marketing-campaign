@@ -7,6 +7,6 @@ export const bin: BinScriptConfig[] = [
   },
   {
     key: 'generate:seed:users',
-    scriptPath: './src/bin/seed/Users.seed.ts',
+    scriptPath: './src/bin/seed/Users.ts',
   },
 ]

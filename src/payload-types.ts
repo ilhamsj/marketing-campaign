@@ -71,7 +71,6 @@ export interface Config {
     broadcasts: Broadcast;
     campaigns: Campaign;
     media: Media;
-    settings: Setting;
     subscribers: Subscriber;
     tags: Tag;
     templates: Template;
@@ -89,7 +88,6 @@ export interface Config {
     broadcasts: BroadcastsSelect<false> | BroadcastsSelect<true>;
     campaigns: CampaignsSelect<false> | CampaignsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    settings: SettingsSelect<false> | SettingsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     templates: TemplatesSelect<false> | TemplatesSelect<true>;
@@ -235,6 +233,7 @@ export interface Subscriber {
   id: string;
   email: string;
   name: string;
+  status?: ('active' | 'inactive') | null;
   tags?: (string | Tag)[] | null;
   attributes?:
     | {
@@ -263,19 +262,6 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings".
- */
-export interface Setting {
-  id: string;
-  siteName: string;
-  url: string;
-  host: string;
-  port: number;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -440,10 +426,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
-      } | null)
-    | ({
-        relationTo: 'settings';
-        value: string | Setting;
       } | null)
     | ({
         relationTo: 'subscribers';
@@ -619,23 +601,12 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings_select".
- */
-export interface SettingsSelect<T extends boolean = true> {
-  siteName?: T;
-  url?: T;
-  host?: T;
-  port?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "subscribers_select".
  */
 export interface SubscribersSelect<T extends boolean = true> {
   email?: T;
   name?: T;
+  status?: T;
   tags?: T;
   attributes?:
     | T

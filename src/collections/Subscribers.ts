@@ -19,6 +19,21 @@ export const Subscribers: CollectionConfig = {
       required: true,
     },
     {
+      name: 'status',
+      type: 'select',
+      options: [
+        {
+          label: 'Active',
+          value: 'active',
+        },
+        {
+          label: 'Inactive',
+          value: 'inactive',
+        },
+      ],
+      defaultValue: 'active',
+    },
+    {
       name: 'tags',
       type: 'relationship',
       relationTo: 'tags',
