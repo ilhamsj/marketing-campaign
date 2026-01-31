@@ -7,7 +7,7 @@ on:
     branches: [main, stg]
 
 env:
-  APP_SECRET: eiG+0UlkiiJu8RsLWf/ubJDCKOewZNs1SDSyDCstkM0=
+  PAYLOAD_SECRET: eiG+0UlkiiJu8RsLWf/ubJDCKOewZNs1SDSyDCstkM0=
   DATABASE_URI: mongodb://testuser:testpass@localhost:27017/payload?authSource=admin
   MONGO_PASS: testpass
   MONGO_USER: testuser
@@ -176,7 +176,7 @@ jobs:
           
           docker build \
             --network host \
-            --build-arg APP_SECRET=${{ env.APP_SECRET }} \
+            --build-arg PAYLOAD_SECRET=${{ env.PAYLOAD_SECRET }} \
             --build-arg DATABASE_URI=${{ env.DATABASE_URI }} \
             -t $IMAGE_NAME:${GITHUB_SHA} .
 
