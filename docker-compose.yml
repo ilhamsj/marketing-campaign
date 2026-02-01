@@ -16,6 +16,23 @@ services:
     env_file:
       - .env
 
+  payload-worker:
+    image: node:22
+    volumes:
+      - .:/home/node/app
+    working_dir: /home/node/app/
+    command: >
+      sh -c "
+      corepack enable && 
+      corepack prepare pnpm@latest --activate &&
+      pnpm config set store-dir /pnpm/store &&
+      pnpm run payload jobs:run"
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - payload
+
   mongo:
     image: mongo:latest
     ports:
@@ -47,6 +64,16 @@ services:
   #   restart: always
   #   image: postgres:latest
   #   volumes:
-  #     - ./data/postgres:/var/lib/postgresql/data
+  #     - ./.data/postgres:/var/lib/postgresql/data
   #   ports:
   #     - 5432:5432
+
+  # adminer:
+  #   image: adminer:latest
+  #   container_name: adminer
+  #   restart: unless-stopped
+  #   environment:
+  #     - ADMINER_DEFAULT_SERVER=postgres
+  #     - ADMINER_DESIGN=adminer-dark
+  #   ports:
+  #     - 8080:8080

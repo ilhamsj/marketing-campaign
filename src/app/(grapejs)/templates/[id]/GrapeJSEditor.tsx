@@ -1,14 +1,13 @@
 'use client'
 
 import 'grapesjs/dist/css/grapes.min.css'
-
-import { CampaignsTemplate } from '@/payload-types'
+import { Template } from '@/payload-types'
 import { useEffect, useRef } from 'react'
-import grapesjs, { Editor, EditorConfig, ProjectData } from 'grapesjs'
+import grapesjs, { Editor, EditorConfig } from 'grapesjs'
 import plugin from 'grapesjs-preset-newsletter'
 
 type Props = {
-  template: CampaignsTemplate
+  template: Template
   assets: string[]
 }
 
@@ -47,7 +46,7 @@ export default function GrapeJSEditor({ template, assets }: Props) {
         width: '100%',
         plugins: [plugin],
         components: template.html,
-        style: template.css,
+        style: template.css ?? '',
       }
 
       editorInstance.current = grapesjs.init(config)
