@@ -1,15 +1,15 @@
-import { bin } from './bin'
+import { autoLoginUserForDevelopment } from './payload/bin/seed/Users'
+import { bin } from './payload/bin'
 import { buildConfig } from 'payload'
-import { collections } from './collections'
+import { collections } from './payload/collections'
+import { env } from './shared/constants/env'
 import { fileURLToPath } from 'url'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
-import { Users } from './collections/Users'
+import { Users } from './payload/collections/Users'
 import path from 'path'
 import sharp from 'sharp'
-import { autoLoginUserForDevelopment } from './bin/seed/Users'
-import { env } from './constants/env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

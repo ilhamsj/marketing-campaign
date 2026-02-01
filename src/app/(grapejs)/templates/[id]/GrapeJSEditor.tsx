@@ -58,7 +58,7 @@ export default function GrapeJSEditor({ template, assets }: Props) {
         editorInstance.current = null
       }
     }
-  }, [template.id])
+  }, [template.id, template.html, template.css, assets])
 
   return <div ref={editorRef} style={{ width: '100%', height: '100vh' }} />
 }

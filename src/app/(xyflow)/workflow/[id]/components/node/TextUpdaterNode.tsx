@@ -1,9 +1,7 @@
 import { Handle, NodeTypes, Position } from '@xyflow/react'
 import Image from 'next/image'
 
-const handleStyle = { left: 10 }
-
-function TextUpdaterNode(props) {
+function TextUpdaterNode() {
   return (
     <div>
       <div className="relative w-15 h-15 border border-black rounded bg-white">

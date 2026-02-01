@@ -54,8 +54,6 @@ const initialEdges = [
 ]
 
 export function FlowV2() {
-  const reactFlowInstance = useReactFlow()
-
   const [nodes, setNodes] = useState<Node[]>(initialNodes)
   const [edges, setEdges] = useState<Edge[]>(initialEdges)
 

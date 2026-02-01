@@ -1,8 +1,14 @@
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+import { cn } from '@/frontend/lib/utils'
+import { Button } from '@/frontend/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/frontend/components/ui/card'
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/frontend/components/ui/field'
+import { Input } from '@/frontend/components/ui/input'
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   return (

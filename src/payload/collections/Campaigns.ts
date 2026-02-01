@@ -78,9 +78,9 @@ export const Campaigns: CollectionConfig = {
               admin: {
                 components: {
                   Label:
-                    '@/collections/Fields/select/components/client/Label#CustomSelectFieldLabelClient',
+                    '@/payload/collections/Fields/select/components/client/Label#CustomSelectFieldLabelClient',
                   Field:
-                    '@/collections/Fields/select/components/client/Field#CustomSelectFieldClient',
+                    '@/payload/collections/Fields/select/components/client/Field#CustomSelectFieldClient',
                 },
               },
             },
@@ -104,17 +104,4 @@ export const Campaigns: CollectionConfig = {
       ],
     },
   ],
-  hooks: {
-    beforeValidate: [
-      ({ collection, context, operation, req, data, originalDoc }) => {
-        //
-      },
-    ],
-    beforeChange: [
-      ({ collection, context, data, operation, req, originalDoc }) => {
-        //
-      },
-    ],
-    afterChange: [({ collection, context, data, operation, req }) => {}],
-  },
 }
