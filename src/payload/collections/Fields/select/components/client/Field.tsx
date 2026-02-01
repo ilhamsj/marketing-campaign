@@ -1,6 +1,6 @@
 'use client'
 import { LoadingOverlay, SelectField, usePayloadAPI } from '@payloadcms/ui'
-import { PayloadQueryPreset } from '@/payload-types'
+import { PayloadQueryPreset } from '@payload-types'
 import type { SelectFieldClientComponent } from 'payload'
 
 export const CustomSelectFieldClient: SelectFieldClientComponent = (props) => {

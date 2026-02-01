@@ -1,4 +1,4 @@
-import { Campaign } from '@/payload-types'
+import { Campaign } from '@payload-types'
 import { Access, slugField, type CollectionConfig } from 'payload'
 
 const update: Access<Campaign> = ({ data }) => {

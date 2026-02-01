@@ -1,6 +1,6 @@
 'use client'
 
-import { Workflow } from '@/payload-types'
+import { Workflow } from '@payload-types'
 import {
   addEdge,
   Background,

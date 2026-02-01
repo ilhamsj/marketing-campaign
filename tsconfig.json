@@ -27,8 +27,11 @@
         "./src/*"
       ],
       "@payload-config": [
-        "./src/payload.config.ts"
-      ]
+        "./src/payload/payload.config.ts"
+      ],
+      "@payload-types": [
+        "./src/payload/payload-types.ts"
+      ],
     },
     "target": "ES2022",
   },

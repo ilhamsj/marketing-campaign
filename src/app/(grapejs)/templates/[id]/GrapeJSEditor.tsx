@@ -1,7 +1,7 @@
 'use client'
 
 import 'grapesjs/dist/css/grapes.min.css'
-import { Template } from '@/payload-types'
+import { Template } from '@payload-types'
 import { useEffect, useRef } from 'react'
 import grapesjs, { Editor, EditorConfig } from 'grapesjs'
 import plugin from 'grapesjs-preset-newsletter'
