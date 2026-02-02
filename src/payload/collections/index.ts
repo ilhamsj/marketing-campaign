@@ -1,6 +1,6 @@
 import { Activities } from './Activities'
 import { Broadcasts } from './BroadCasts'
-import { Campaigns } from './Campaigns'
+import { Campaigns } from './campaigns'
 import { CollectionConfig } from 'payload'
 import { Media } from './Media'
 import { Subscribers } from './Subscribers'
