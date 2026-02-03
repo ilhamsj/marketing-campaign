@@ -37,7 +37,7 @@
     "grapesjs-preset-newsletter": "^1.0.2",
     "graphql": "^16.8.1",
     "handlebars": "^4.7.8",
-    "next": "15.4.10",
+    "next": "15.4.11",
     "nodemailer": "^7.0.13",
     "payload": "3.73.0",
     "postcss": "^8.5.6",
