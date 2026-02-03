@@ -1,9 +1,27 @@
 services:
+  # payload-worker:
+  #   image: node:22
+  #   volumes:
+  #     - .:/home/node/app
+  #   working_dir: /home/node/app/
+  #   command: >
+  #     sh -c "
+  #     corepack enable && 
+  #     corepack prepare pnpm@latest --activate &&
+  #     pnpm config set store-dir /pnpm/store &&
+  #     pnpm run payload jobs:run"
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - payload
+
   payload:
     image: node:22
     ports:
       - '3000:3000'
     volumes:
+      - ~/Library/pnpm/store:/pnpm/store
       - .:/home/node/app
     working_dir: /home/node/app/
     command: >
@@ -15,23 +33,6 @@ services:
       pnpm run dev"
     env_file:
       - .env
-
-  payload-worker:
-    image: node:22
-    volumes:
-      - .:/home/node/app
-    working_dir: /home/node/app/
-    command: >
-      sh -c "
-      corepack enable && 
-      corepack prepare pnpm@latest --activate &&
-      pnpm config set store-dir /pnpm/store &&
-      pnpm run payload jobs:run"
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on:
-      - payload
 
   mongo:
     image: mongo:latest

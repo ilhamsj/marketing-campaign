@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChartAreaInteractive } from './reports/example'
+import { ChartAreaInteractive } from './example'
 
 export default function Page() {
   return <ChartAreaInteractive />
