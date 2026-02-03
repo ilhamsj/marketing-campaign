@@ -158,8 +158,8 @@ export interface Activity {
  */
 export interface Broadcast {
   id: string;
-  campaign?: (string | null) | Campaign;
-  subscriber?: (string | null) | Subscriber;
+  campaign: string | Campaign;
+  subscriber: string | Subscriber;
   updatedAt: string;
   createdAt: string;
 }

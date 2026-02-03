@@ -16,14 +16,43 @@ const triggerEmailSending: CollectionAfterChangeHook<Campaign> = async (args) =>
 
   if (!template) return
 
-  const email = await payload.sendEmail({
-    to: 'test@example.com',
-    subject: doc.subject,
-    text: doc.subject,
-    html: template.html,
-  })
+  if (typeof doc.segments?.filters === 'string') {
+    const subsribers = await payload.find({
+      collection: 'subscribers',
+      select: {
+        id: true,
+        name: true,
+      },
+      where: {
+        and: [
+          {
+            tags: {
+              in: doc.segments?.tags,
+            },
+          },
+        ],
+      },
+      depth: 0,
+      limit: -1,
+    })
 
-  payload.logger.info({ msg: 'Email sent', email, doc })
+    const broadcasts = await Promise.all(
+      subsribers.docs.map(async (subscriber) => {
+        return await payload.create({
+          collection: 'broadcasts',
+          data: {
+            campaign: doc.id,
+            subscriber: subscriber.id,
+          },
+          depth: 0,
+        })
+      }),
+    )
+
+    payload.logger.info({ msg: 'Email sent', subsribers: subsribers.totalDocs, broadcasts, doc })
+  } else {
+    payload.logger.info({ msg: 'No filters found', doc })
+  }
 }
 
 export const hooks: CollectionConfig['hooks'] = {
