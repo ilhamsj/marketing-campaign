@@ -19,8 +19,9 @@ export const script = async (config: SanitizedConfig) => {
   await templateSeed(payload, 3)
   await usersSeed(payload)
   await campaignSeed(payload, 3)
-  await broadcastSeed(payload, 20)
-  await activitiesSeed(payload, 40)
+
+  // await broadcastSeed(payload, 20)
+  // await activitiesSeed(payload, 40)
 
   await workflowsSeed(payload, 1)
   await payloadQueryPresetsSeed(payload)
