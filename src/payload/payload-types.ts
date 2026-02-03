@@ -148,6 +148,8 @@ export interface Activity {
   id: string;
   broadcast?: (string | null) | Broadcast;
   action: 'sent' | 'failed' | 'delivered' | 'opened' | 'clicked' | 'unsubscribed' | 'bounced';
+  ip?: string | null;
+  userAgent?: string | null;
   link?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -567,6 +569,8 @@ export interface PayloadQueryPreset {
 export interface ActivitiesSelect<T extends boolean = true> {
   broadcast?: T;
   action?: T;
+  ip?: T;
+  userAgent?: T;
   link?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -23,6 +23,14 @@ export const Activities: CollectionConfig = {
       required: true,
     },
     {
+      name: 'ip',
+      type: 'text',
+    },
+    {
+      name: 'userAgent',
+      type: 'text',
+    },
+    {
       name: 'link',
       type: 'text',
     },

@@ -9,7 +9,13 @@ export const templateSeed = async (payload: Payload, totalDocs: number = 3) => {
       collection: 'templates',
       data: {
         name: faker.person.firstName(),
-        html: `<div><h1>Hi ${faker.person.firstName()}, welcome to ${faker.company.name()}!</h1><p>Here is your newsletter content</p></div>`,
+        html: `<div><h1>Hi {{name}}, welcome to ${faker.company.name()}!</h1><p>Here is your newsletter content</p>
+        <ul>
+          <li><a target="_blank" href="http://localhost:3000/reports">Visit our Reports</a></li>
+          <li><a target="_blank" href="http://localhost:3000">Visit our Broadcasts</a></li>
+          <li><a target="_blank" href="http://localhost:3000/unsubscribe">Unsubscribe</a></li>
+          </ul>
+        </div>`,
         css: `h1 { color: ${faker.color.rgb()}; } p { color: ${faker.color.rgb()}; }`,
       },
     })
